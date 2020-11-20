@@ -1,8 +1,9 @@
 import { computed, ref, toRefs, watch } from '@vue/composition-api'
-import { createDebouncer } from 'promised-debounce'
 import useEventActionKey from '@/composables/useEventActionKey'
+import { useDebouncedWatchHandler } from '@/composables/useDebounce'
 import useEventEscapeKey from '@/composables/useEventEscapeKey'
 import useEventJail from '@/composables/useEventJail'
+
 
 export const useViewCollectionItemProps = {
   id: {
@@ -20,10 +21,10 @@ export const useViewCollectionItem = (collection, props, context) => {
 
   const {
     useItemDefaults = () => ({}), // {}
-    useItemTitle= () => {},
-    useItemTitleBadge= () => {},
-    useRouter= () => {},
-    useStore= () => {},
+    useItemTitle = () => {},
+    useItemTitleBadge = () => {},
+    useRouter = () => {},
+    useStore = () => {},
   } = collection
 
   const {
@@ -54,17 +55,7 @@ export const useViewCollectionItem = (collection, props, context) => {
       return true
   })
 
-  const isValid = ref(true)
-  let isValidDebouncer
-  watch([form, meta], () => {
-    isValid.value = false // temporary
-    if (!isValidDebouncer)
-      isValidDebouncer = createDebouncer()
-    isValidDebouncer({
-      handler: () => isValid.value = rootRef.value && rootRef.value.querySelectorAll('.is-invalid').length === 0,
-      time: 1000
-    })
-  }, { deep: true })
+  const isValid = useDebouncedWatchHandler([form, meta], () => (rootRef.value && rootRef.value.querySelectorAll('.is-invalid').length === 0))
 
   const {
     isLoading,
