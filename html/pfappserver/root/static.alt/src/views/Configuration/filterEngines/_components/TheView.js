@@ -1,6 +1,5 @@
 import {
   BaseView,
-
   FormButtonBar,
   TheForm
 } from './'
@@ -19,25 +18,7 @@ const props = {
   ...useItemProps
 }
 
-const setup = (props, context) => {
-
-  const {
-    switchGroup
-  } = toRefs(props)
-
-  const viewCollectionItem = useViewCollectionItem(collection, props, context)
-  const {
-    form
-  } = viewCollectionItem
-
-  const titleBadge = computed(() => switchGroup.value || form.value.group)
-
-  return {
-    ...viewCollectionItem,
-
-    titleBadge
-  }
-}
+const setup = (props, context) => useViewCollectionItem(collection, props, context)
 
 // @vue/component
 export default {

@@ -22,17 +22,17 @@
       class="mr-1" variant="outline-primary"
       @click="onClone"
     >{{ $t('Clone') }}</b-button>
+    <b-button v-if="isCloseable"
+      :disabled="isLoading"
+      class="mr-1" variant="secondary"
+      @click="onClose"
+    >{{ $t('Cancel') }}</b-button>
     <base-button-delete v-if="isDeletable"
       :confirm="$t('Delete?')"
       :disabled="isLoading"
       class="mr-1"
       @delete="onRemove"
     />
-    <b-button v-if="isCloseable"
-      :disabled="isLoading"
-      class="mr-1" variant="secondary"
-      @click="onClose"
-    >{{ $t('Cancel') }}</b-button>
     <slot/>
   </div>
 </template>

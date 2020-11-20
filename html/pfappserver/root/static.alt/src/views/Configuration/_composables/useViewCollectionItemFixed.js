@@ -11,8 +11,8 @@ export const useViewCollectionItemFixedProps = {
 export const useViewCollectionItemFixed = (collection, props, context) => {
 
   const {
-    useItemTitle,
-    useStore,
+    useItemTitle = () => {},
+    useStore = () => {},
   } = collection
 
   // template refs

@@ -101,7 +101,7 @@ const PkiRevokedCertView = () => import(/* webpackChunkName: "Configuration" */ 
 const AdvancedAccessConfigurationSection = () => import(/* webpackChunkName: "Configuration" */ '../_components/AdvancedAccessConfigurationSection')
 const CaptivePortalView = () => import(/* webpackChunkName: "Configuration" */ '../_components/CaptivePortalView')
 const FilterEnginesList = () => import(/* webpackChunkName: "Editor" */ '../_components/FilterEnginesList')
-const FilterEngineView = () => import(/* webpackChunkName: "Editor" */ '../_components/FilterEngineView')
+const FilterEngineView = () => import(/* webpackChunkName: "Editor" */ '../filterEngines/_components/TheView')
 const BillingTiersList = () => import(/* webpackChunkName: "Configuration" */ '../_components/BillingTiersList')
 const BillingTierView = () => import(/* webpackChunkName: "Configuration" */ '../_components/BillingTierView')
 const PkiProvidersList = () => import(/* webpackChunkName: "Configuration" */ '../_components/PkiProvidersList')
@@ -1585,37 +1585,19 @@ const route = {
       path: 'filter_engines/:collection/new',
       name: 'newFilterEngine',
       component: FilterEngineView,
-      props: (route) => ({ formStoreName: 'formFilterEngines', collection: route.params.collection, isNew: true }),
-      beforeEnter: (to, from, next) => {
-        if (!store.state.formFilterEngines) { // Register store module only once
-          store.registerModule('formFilterEngines', FormStore)
-        }
-        next()
-      }
+      props: (route) => ({ collection: route.params.collection, isNew: true })
     },
     {
       path: 'filter_engines/:collection/:id',
       name: 'filter_engine',
       component: FilterEngineView,
-      props: (route) => ({ formStoreName: 'formFilterEngines', collection: route.params.collection, id: route.params.id }),
-      beforeEnter: (to, from, next) => {
-        if (!store.state.formFilterEngines) { // Register store module only once
-          store.registerModule('formFilterEngines', FormStore)
-        }
-        next()
-      }
+      props: (route) => ({ collection: route.params.collection, id: route.params.id })
     },
     {
       path: 'filter_engines/:collection/:id/clone',
       name: 'cloneFilterEngine',
       component: FilterEngineView,
-      props: (route) => ({ formStoreName: 'formFilterEngines', collection: route.params.collection, id: route.params.id, isClone: true }),
-      beforeEnter: (to, from, next) => {
-        if (!store.state.formFilterEngines) { // Register store module only once
-          store.registerModule('formFilterEngines', FormStore)
-        }
-        next()
-      }
+      props: (route) => ({ collection: route.params.collection, id: route.params.id, isClone: true })
     },
     {
       path: 'billing_tiers',

@@ -19,10 +19,11 @@ export const useViewCollectionItemProps = {
 export const useViewCollectionItem = (collection, props, context) => {
 
   const {
-    useItemDefaults,
-    useItemTitle,
-    useRouter,
-    useStore,
+    useItemDefaults = () => ({}), // {}
+    useItemTitle= () => {},
+    useItemTitleBadge= () => {},
+    useRouter= () => {},
+    useStore= () => {},
   } = collection
 
   const {
@@ -37,7 +38,8 @@ export const useViewCollectionItem = (collection, props, context) => {
   // state
   const form = ref({})
   const meta = ref({})
-  const title = useItemTitle(props)
+  const title = useItemTitle(props, context)
+  const titleBadge = useItemTitleBadge(props, context)
   const isModified = ref(false)
 
   // unhandled custom props
@@ -149,6 +151,7 @@ export const useViewCollectionItem = (collection, props, context) => {
     form,
     meta,
     title,
+    titleBadge,
     isModified,
     customProps,
     actionKey,
@@ -162,7 +165,6 @@ export const useViewCollectionItem = (collection, props, context) => {
     onSave,
 
     // to overload
-    scopedSlotProps: props,
-    titleBadge: undefined
+    scopedSlotProps: props
   }
 }

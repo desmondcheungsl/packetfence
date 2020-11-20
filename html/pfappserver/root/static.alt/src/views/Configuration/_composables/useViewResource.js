@@ -7,8 +7,8 @@ export const useViewResourceProps = {}
 export const useViewResource = (resource, props, context) => {
 
   const {
-    useTitle,
-    useStore,
+    useTitle = () => {},
+    useStore = () => {},
   } = resource
 
   // template refs

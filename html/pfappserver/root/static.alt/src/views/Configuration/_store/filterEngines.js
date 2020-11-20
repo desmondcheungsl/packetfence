@@ -50,6 +50,7 @@ const actions = {
     })
   },
   getCollection: ({ state, commit, dispatch }, collection) => {
+console.log({collection})
     if (state.cache[collection] && 'items' in state.cache[collection]) {
       return Promise.resolve(state.cache[collection])
     }
