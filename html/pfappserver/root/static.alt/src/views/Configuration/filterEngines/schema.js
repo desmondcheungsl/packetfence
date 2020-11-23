@@ -19,6 +19,14 @@ yup.addMethod(yup.string, 'filterIdNotExistsExcept', function (except, message) 
   })
 })
 
+const schemaAnswer = yup.object({
+  prefix: yup.string().required(i18n.t('Prefix required.')),
+  type: yup.string().required(i18n.t('Type required.')),
+  value: yup.string().required(i18n.t('Value required'))
+})
+
+const schemaAnswers = yup.array().ensure().of(schemaAnswer)
+
 export const schema = (props) => {
   const {
     collection,
@@ -32,6 +40,8 @@ export const schema = (props) => {
       .nullable()
       .required(i18n.t('Name required.'))
       .filterIdNotExistsExcept((!isNew && !isClone) ? { collection, id } : { collection }, i18n.t('Name exists.')),
+
+    answers: schemaAnswers.meta({ fieldName: i18n.t('Answer'), invalidFeedback: i18n.t('Answers contain one or more errors.') }),
   })
 }
 
