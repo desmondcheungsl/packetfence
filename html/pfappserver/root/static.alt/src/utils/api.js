@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from '@/store'
 
-const baseURL = '/api/v1/'
+export const baseURL = '/api/v1/'
 
 const apiCall = axios.create({
   baseURL
